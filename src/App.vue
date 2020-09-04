@@ -2,27 +2,24 @@
   <div id="app">
     <app-header />
     <item-input />
-    <item />
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
-import AppHeader from '@/components/Header.vue'
-import ItemInput from '@/components/ItemInput.vue'
-import Item from '@/components/Item.vue'
+import { Vue, Component } from 'vue-property-decorator';
+import AppHeader from '@/components/Header.vue';
+import ItemInput from '@/components/ItemInput.vue';
 
 @Component({
   components: {
     AppHeader,
     ItemInput,
-    Item
-  }
+  },
 })
 export default class App extends Vue {
 
 }
-
 </script>
 
 <style>

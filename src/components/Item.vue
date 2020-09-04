@@ -3,10 +3,13 @@
       <span class="input-group-addon">
         <input
             type="checkbox"
-            aria-label="..."
+            :checked="status === 'clear'"
             @change="changeStatus">
       </span>
-    <input type="text" class="form-control" aria-label="...">
+    <input
+        type="text"
+        class="form-control"
+        :value="title">
     <span class="input-group-btn">
       <button
           class="btn btn-default"
@@ -17,14 +20,17 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class Item extends Vue {
-  changeStatus() {
+  @Prop() public readonly id!: number;
+  @Prop() public readonly title!: string;
+  @Prop() public readonly status!: 'active'|'clear';
+  public changeStatus() {
 
   }
-  removeItem() {
+  public removeItem() {
 
   }
 }
