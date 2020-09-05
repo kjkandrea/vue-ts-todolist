@@ -25,7 +25,7 @@ export default class ItemList extends Vue {
   public renderList: any[] = [];
 
   public created() {
-    this.initRenderList(this.$route.params.status);
+    this.$store.dispatch('initData');
   }
 
   public initRenderList(status: 'active'|'clear') {
