@@ -1,6 +1,6 @@
 <template>
   <div>
-    <item v-for="item in renderList" :id="item.id" :title="item.title" :status="item.status"/>
+    <item v-for="item in renderList" :id="item.id" :title="item.title" :status="item.status" :key="item.id" />
   </div>
 </template>
 
@@ -17,26 +17,35 @@ import { mapGetters } from 'vuex';
     ...mapGetters([
         'allTodoList',
         'activeTodoList',
-        'clearTodoList'
-    ])
-  }
+        'clearTodoList',
+    ]),
+  },
 })
 export default class ItemList extends Vue {
-  public renderList: any[] = []
+  public renderList: any[] = [];
 
-  created() {
-    this.renderList = this.allTodoList
+  public created() {
+    this.initRenderList(this.$route.params.status);
+  }
+
+  public initRenderList(status: 'active'|'clear') {
+    if (!status) {
+      this.renderList = this.allTodoList;
+    } else if (status === 'active') {
+      this.renderList = this.activeTodoList;
+    } else if (status === 'clear') {
+      this.renderList = this.clearTodoList;
+    }
   }
 
   @Watch('$route.params.status')
-  public routeUpdate(newValue: string) {
-    if (!newValue) {
-      this.renderList = this.allTodoList;
-    } else if (newValue === 'active') {
-      this.renderList = this.activeTodoList
-    } else if (newValue === 'clear') {
-      this.renderList = this.clearTodoList
-    }
+  public routeUpdate(newValue: 'active'|'clear') {
+    this.initRenderList(newValue);
+  }
+
+  @Watch('$store.state.todoList', {deep: true})
+  public routeUpdate() {
+    this.initRenderList(this.$route.params.status);
   }
 }
 </script>

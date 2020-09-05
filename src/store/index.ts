@@ -10,34 +10,34 @@ const store: StoreOptions<State> = {
       {id: 0, title: 'test', status: 'active'},
       {id: 1, title: 'test1', status: 'active'},
       {id: 2, title: 'test2', status: 'clear'},
-    ]
+    ],
   },
   mutations: {
     // TODO add
     addItem(state, item: Item) {
-      let newTodoList: Item[] = state.todoList.concat()
-      newTodoList.push(item)
-      state.todoList = newTodoList
+      const newTodoList: Item[] = state.todoList.concat();
+      newTodoList.push(item);
+      state.todoList = newTodoList;
     },
     // TODO change status
     changeItemStatus(state, {id, status}: {id: number, status: 'active'|'clear'}) {
-      let newTodoList: Item[] = state.todoList.concat().map((item: Item) => {
+      const newTodoList: Item[] = state.todoList.concat().map((item: Item) => {
         if (item.id === id) {
-          let newItem: Item = item
-          newItem.status = status
-          return newItem
+          const newItem: Item = item;
+          newItem.status = status;
+          return newItem;
         }
-        return item
-      })
-      state.todoList = newTodoList
+        return item;
+      });
+      state.todoList = newTodoList;
     },
     // TODO remove
     removeItem(state, id: number) {
       const newTodoList: Item[] = state.todoList.concat().filter((item: Item) => {
-        return item.id !== id
-      })
-      state.todoList = newTodoList
-    }
+        return item.id !== id;
+      });
+      state.todoList = newTodoList;
+    },
   },
   actions: {
   },
@@ -45,15 +45,15 @@ const store: StoreOptions<State> = {
     allTodoList: (state) => state.todoList,
     activeTodoList: (state) => {
       return state.todoList.filter((item: Item) => {
-        return item.status === 'active'
-      })
+        return item.status === 'active';
+      });
     },
     clearTodoList: (state) => {
       return state.todoList.filter((item: Item) => {
-        return item.status === 'clear'
-      })
-    }
-  }
+        return item.status === 'clear';
+      });
+    },
+  },
 };
 
-export default new Vuex.Store(store)
+export default new Vuex.Store(store);
